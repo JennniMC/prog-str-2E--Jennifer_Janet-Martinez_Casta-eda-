@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> afb997d76339a0ad84b6c0dbbc546c9848f153be
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
@@ -361,4 +358,4 @@ replay_pid*
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,visualstudiocode
 /.idea/
 
->>>>>>> afb997d76339a0ad84b6c0dbbc546c9848f153be
+
