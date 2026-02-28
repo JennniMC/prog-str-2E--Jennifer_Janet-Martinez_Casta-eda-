@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="293.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.logindashboardfx.DashboardController">
+    <children>
+        <Label fx:id="Bienvenidolbl" layoutX="150.0" layoutY="180.0" style="-fx-text-fill: green" text="Bienvenido"  textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+    </children>
+</VBox>
