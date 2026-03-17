@@ -22,11 +22,43 @@ public class PersonService {
             String name= parts[0];
             String email=parts[1];
             String edad=parts[2];
-            result.add("Nombre"+name+" - "+email+" - "+edad);
+            result.add(name+" - "+email+" - "+edad);
 }
         }
         return result;
     }
+
+    public void updatePerson(int index, String name, String email, String edad) throws IOException {
+        validate(name, email, edad);
+        if(index<0){
+            throw new IllegalArgumentException("El indice es invalido");
+        }
+        List<String> data=getCleanLines(); //Actualizar
+        data.set(index, name + " , "+email+ " , "+edad);
+        repo.saveFile(data); //Poner información al archivo
+    }
+    public void removePerson(int index) throws IOException {
+        if(index < 0){
+            throw new IllegalArgumentException("El índice es inválido");
+        }
+
+        List<String> data = getCleanLines();
+        data.remove(index); // eliminar
+        repo.saveFile(data); // guarda cambios
+    }
+
+    private List<String> getCleanLines() throws IOException {
+        List<String> lines= repo.readAllLines();
+        List<String> cleanLines = new  ArrayList<>();
+        for(String line : lines){
+            if(line!=null && !line.isBlank()){
+                cleanLines.add(line);
+            }
+        }
+        return cleanLines;
+    }
+
+
     public void addPerson(String name, String email, String edad) throws IOException{
         validate(name, email, edad);
         repo.appendNewLine(name+" , "+email+" , "+edad);

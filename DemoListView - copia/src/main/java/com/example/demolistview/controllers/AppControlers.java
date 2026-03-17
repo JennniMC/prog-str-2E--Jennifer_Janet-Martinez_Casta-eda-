@@ -27,8 +27,13 @@ public class AppControlers {
     private ObservableList<String> data= FXCollections.observableArrayList();
     private PersonService service = new PersonService();
     @FXML
-    public void initialize(){
+    public void initialize(){  //primer metodo que se ejecuta
         loadFromFile();
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                (obs,oldvalue,newvalue) ->{
+                    loadDataToForm(newvalue);
+                }
+        );
         listView.setItems(data);
     }
     @FXML
@@ -73,6 +78,64 @@ public class AppControlers {
         }catch (IOException e){
             lblMsg.setText("Error al cargar los archivos " +e.getLocalizedMessage());//Mostrar el error
             lblMsg.setStyle("-fx-text-fill: red");
+
+        }
+
+    }
+
+    private void loadDataToForm(String data){
+        String[] parts=data.split(" - ");
+        txtName.setText(parts[0]);
+        txtEmail.setText(parts[1]);
+        txtEdad.setText(parts[2]);
+
+
+    }
+    public void onUpdate(){
+        try{
+            int index = listView.getSelectionModel().getSelectedIndex();
+            String name=txtName.getText();
+            String email=txtEmail.getText();
+            String edad=txtEdad.getText();
+            loadFromFile();
+            service.updatePerson(index, name, email, edad);
+            lblMsg.setText("Persona Actualizada con exito");
+            lblMsg.setStyle("-fx-text-fill: green");
+            txtEmail.clear();
+            txtName.clear();
+            txtEdad.clear();
+
+
+        }catch (IOException e){
+            lblMsg.setText("Hubo un error con el archivo");
+            lblMsg.setStyle("-fx-text-fill: red");
+
+
+        }catch (IllegalArgumentException e){
+            lblMsg.setText("Hubo un error con los datos  al Actualizar"+e.getMessage());
+            lblMsg.setStyle("-fx-text-fill: red");
+
+        }
+
+    }
+
+    //Eliminar
+    public void onRemove(){
+        try{
+            int index = listView.getSelectionModel().getSelectedIndex();
+            loadFromFile();
+            service.removePerson(index);
+            lblMsg.setText("Persona Eliminada con exito");
+            lblMsg.setStyle("-fx-text-fill: green");
+
+
+
+
+        }catch (IOException e){
+            lblMsg.setText("Hubo un error con el archivo");
+            lblMsg.setStyle("-fx-text-fill: red");
+
+
 
         }
 
