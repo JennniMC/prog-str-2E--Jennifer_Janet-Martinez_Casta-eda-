@@ -67,6 +67,7 @@ public class AppControlers {
 
     }
 
+
     //metodo para convertir obseravble a string
     private void loadFromFile(){
         //Manejar IOException
